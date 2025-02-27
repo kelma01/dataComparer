@@ -8,32 +8,99 @@ import fastavro
 from fastavro.schema import load_schema
 
 #read json file
-with open('data2.json', 'r') as json_file:
+with open('data.json', 'r') as json_file:
     json_data = json.load(json_file)
 
 #converting json format to parquet format
-df = pd.read_json('data2.json')
+df = pd.read_json('data.json')
 table = pa.Table.from_pandas(df)
-pq.write_table(table, 'data2.parquet')
+pq.write_table(table, 'data.parquet')
 
 
 #converting json format to xml format
 xml_data = xmltodict.unparse({"root": {"item": json_data}}, pretty=True)
-with open('data2.xml', 'w', encoding='utf-8') as xml_file:
+with open('data.xml', 'w', encoding='utf-8') as xml_file:
     xml_file.write(xml_data)
 
 #converting json format to avro format
 schema = {
-    "type": "record",
-    "name": "NewsArticle",
-    "fields": [
-        {"name": "link", "type": "string"},
-        {"name": "headline", "type": "string"},
-        {"name": "category", "type": "string"},
-        {"name": "short_description", "type": "string"},
-        {"name": "authors", "type": "string"},
-        {"name": "date", "type": "string"}
-    ]
+  "type": "record",
+  "name": "RecordSchema",
+  "fields": [
+    {
+      "name": "sid",
+      "type": "string"
+    },
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "position",
+      "type": "int"
+    },
+    {
+      "name": "created_at",
+      "type": "long"
+    },
+    {
+      "name": "created_meta",
+      "type": "string"
+    },
+    {
+      "name": "meta",
+      "type": "string"
+    },
+    {
+      "name": "Unique ID",
+      "type": "string"
+    },
+    {
+      "name": "Indicator ID",
+      "type": "string"
+    },
+    {
+      "name": "Name",
+      "type": "string"
+    },
+    {
+      "name": "Measure",
+      "type": "string"
+    },
+    {
+      "name": "Measure Info",
+      "type": "string"
+    },
+    {
+      "name": "Geo Type Name",
+      "type": "string"
+    },
+    {
+      "name": "Geo Join ID",
+      "type": "string"
+    },
+    {
+      "name": "Geo Place Name",
+      "type": "string"
+    },
+    {
+      "name": "Time Period",
+      "type": "string"
+    },
+    {
+      "name": "Start_Date",
+      "type": "string"
+    },
+    {
+      "name": "Data Value",
+      "type": "string"
+    },
+    {
+      "name": "Message",
+      "type": ["null", "string"]
+    }
+  ]
 }
-with open('data2.avro', 'wb') as out_file:
+
+with open('data.avro', 'wb') as out_file:
     fastavro.writer(out_file, schema, json_data)
