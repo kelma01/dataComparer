@@ -10,5 +10,5 @@ df = spark.read.parquet("datasets/data.parquet")
 end_time = time.time()
 
 reading_time = end_time - start_time
-print(f"========================================================================\nParquet formatlı dosyanın okuma süresi: {reading_time} saniye\n========================================================================")
+print(f"========================================================================\nReading Time of Parquet formatted file: {reading_time} seconds\n========================================================================")
 

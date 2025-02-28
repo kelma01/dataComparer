@@ -11,6 +11,6 @@ df = spark.read.format('com.databricks.spark.xml').option("root", "item").load("
 end_time = time.time()
 
 reading_time = end_time - start_time
-print(f"========================================================================\nXML formatlı dosyanın okuma süresi: {reading_time} saniye\n========================================================================")
+print(f"========================================================================\nReading Time of XML formatted file: {reading_time} seconds\n========================================================================")
 
 #execute this line for running: `spark-submit --packages com.databricks:spark-xml_2.12:0.14.0 .\readers\xml_reader.py`
