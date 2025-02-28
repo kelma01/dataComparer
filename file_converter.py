@@ -1,11 +1,9 @@
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
-import os
 import json
 import xmltodict
 import fastavro
-from fastavro.schema import load_schema
 
 #read json file
 with open('data.json', 'r') as json_file:
@@ -25,7 +23,7 @@ with open('data.xml', 'w', encoding='utf-8') as xml_file:
 #converting json format to avro format
 schema = {
   "type": "record",
-  "name": "RecordSchema",
+  "name": "avroSchema",
   "fields": [
     {
       "name": "sid",
