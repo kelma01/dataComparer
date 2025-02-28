@@ -6,18 +6,32 @@ import xmltodict
 import fastavro
 
 #read json file
-with open('data.json', 'r') as json_file:
+with open('datasets/data.json', 'r') as json_file:
     json_data = json.load(json_file)
 
 #converting json format to parquet format
-df = pd.read_json('data.json')
+df = pd.read_json('datasets/data.json')
 table = pa.Table.from_pandas(df)
-pq.write_table(table, 'data.parquet')
+pq.write_table(table, 'datasets/data.parquet')
+
+table = pq.read_table('datasets/data.parquet')
+new_fields = []
+for field in table.schema:
+    if field.type == pa.timestamp("ns"):  # 
+        new_fields.append(pa.field(field.name, pa.timestamp("ms"))) #NANOS formatina ait timestampler pyspark tarafindan okunamiyor dolayisi ile ms'ye convert ediliyor
+    else:
+        new_fields.append(field) 
+
+new_schema = pa.schema(new_fields)
+new_table = table.cast(new_schema)
+pq.write_table(new_table, "datasets/data.parquet")  # schema parametresi kaldırıldı!
+
+
 
 
 #converting json format to xml format
 xml_data = xmltodict.unparse({"root": {"item": json_data}}, pretty=True)
-with open('data.xml', 'w', encoding='utf-8') as xml_file:
+with open('datasets/data.xml', 'w', encoding='utf-8') as xml_file:
     xml_file.write(xml_data)
 
 #converting json format to avro format
@@ -100,5 +114,5 @@ schema = {
   ]
 }
 
-with open('data.avro', 'wb') as out_file:
+with open('datasets/data.avro', 'wb') as out_file:
     fastavro.writer(out_file, schema, json_data)
