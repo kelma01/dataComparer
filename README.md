@@ -1,5 +1,10 @@
 # dataComparer
 
+Projenin amacı XML, Avro, Parquet, JSON formatlarındaki verinin performansını, okuma hızlarını ve diğer metriklerini karşılaştırmak. Bazı metrikler: Okuma hızı, yazma hızı, veri boyutu, işlem süresi, popüleritesi, kaynak kullanımı.
+1. Apache Spark, sağladığı Python API'ı ile dosya çevirimlerinde, okunma modüllerinde kullanılmıştır. 
+2. HDFS, büyük veri setlerini depolamak için kullanılır. Okuyup yazma işlemlerinde kullanılabilir. Kullanılabiliecek diğer metrikler ise yine disk kullanımı, okuma yazma, gecikme miktarı
+3. Apache Hive, büyük veri setlerinde SQL benzeri sorgular çalıştırmamızı sağlar. Analiz etmek için kullanılabilir. Veri sorgulama, silme, ekleme, okuma gibi metriklerde kullanılabilir.
+
 ## Python Scriptlerini çalıştırmak için.
 
 ```bash
