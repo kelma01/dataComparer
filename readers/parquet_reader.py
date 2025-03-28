@@ -12,3 +12,4 @@ end_time = time.time()
 reading_time = end_time - start_time
 print(f"========================================================================\nReading Time of Parquet formatted file: {reading_time} seconds\n========================================================================")
 
+#execute this line for running: `spark-submit .\readers\parquet_reader.py`
