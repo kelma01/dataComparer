@@ -101,11 +101,14 @@ export HADOOP_HOME=/usr/local/hadoop
 ```
 15. Tekrardan `source ~/.bashrc` ile aktive edip `start-dfs.sh` ile başlat. (`stop-dfs.sh` kapatır.)(`jps` ile çalışıp çalışmadığı görülebilir.)
 
-PC'yi Çalıştırınca Hdfs başlatmak için:
+```
+PC'yi sıfırdan çalıştırınca Hdfs başlatmak için:
 1. Terminal aç.
 2. `sudo service ssh start` ile ssh servisi başlat
 3. `start-dfs.sh` ve `start-yarn.sh` çalıştır.
 4. `hadoop fs -mkdir /test` komutu ile hdfs içinde test klasörü oluşturmayı dene ve `hadoop fs -ls /` ile testini yap test path'i gelmiş mi gelmemiş mi. 
+```
+
  
 ## Apache Hive Kurulumu:
 
