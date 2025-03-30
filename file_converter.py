@@ -6,11 +6,11 @@ import xmltodict
 import fastavro
 
 #read json file
-with open('datasets/data.json', 'r') as json_file:
+with open('datasets/big_data.json', 'r') as json_file:
     json_data = json.load(json_file)
 
 #converting json format to parquet format
-df = pd.read_json('datasets/data.json')
+df = pd.read_json('datasets/big_data.json')
 table = pa.Table.from_pandas(df)
 pq.write_table(table, 'datasets/data.parquet')
 

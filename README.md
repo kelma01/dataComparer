@@ -38,9 +38,15 @@ nano $HADOOP_HOME/etc/hadoop/core-site.xml
 ########################################
 <configuration>
 <property>
-<name>fs.defaultFS</name>
-<value>hdfs://localhost:9000</value>
+    <name>fs.defaultFS</name>
+    <value>hdfs://172.27.90.91:9000</value>
 </property>
+
+<property>
+    <name>dfs.client.use.datanode.hostname</name>
+    <value>true</value>
+</property>
+
 </configuration>
 
 
@@ -48,21 +54,37 @@ nano $HADOOP_HOME/etc/hadoop/core-site.xml
 nano $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 ########################################
 <configuration>
-<property>
-<name>dfs.namenode.name.dir</name>
-<value>file:///usr/local/hadoop/data/namenode</value>
-</property>
-<property>
-<name>dfs.datanode.data.dir</name>
-<value>file:///usr/local/hadoop/data/datanode</value>
-</property>
-<property>
-<name>dfs.replication</name>
-<value>1</value>
-</property>
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>/usr/local/hadoop/data/namenode</value>
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>/usr/local/hadoop/data/datanode</value>
+    </property>
+    <property>
+        <name>dfs.replication</name>
+        <value>1</value>
+    </property>
+    <property>
+        <name>dfs.datanode.hostname</name>
+        <value>172.27.90.91</value>
+    </property>
+    <property>
+        <name>dfs.datanode.address</name>
+        <value>0.0.0.0:9866</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.http.address</name>
+        <value>0.0.0.0:9864</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.ipc.address</name>
+        <value>0.0.0.0:9867</value>
+    </property>
 </configuration>
-
-
 
 
 nano $HADOOP_HOME/etc/hadoop/mapred-site.xml
@@ -73,8 +95,6 @@ nano $HADOOP_HOME/etc/hadoop/mapred-site.xml
 <value>yarn</value>
 </property>
 </configuration>
-
-
 
 
 nano $HADOOP_HOME/etc/hadoop/yarn-site.xml
@@ -136,6 +156,13 @@ export HIVE_CONF_DIR=$HIVE_HOME/conf
 
 
     --------------------------------
+
+
+# HDFS için okuma çalışmazsa:
+
+1. 9000 ve 9866 portlarının dışarıya açık olduğundan emin ol değilse açü
+2. WSL'deki IP değerlerini kullanarak portu windows'un kullanımına aç
+3. https://chatgpt.com/share/67e95025-8d44-8000-9596-7cf5bf874fb0 linkindeki GPT geçmişini oku, benim çözüm şeklim buydu.
 
 Proje için yapılacaklar:
 1. storage için hdfs kurulumu
