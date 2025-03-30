@@ -1,8 +1,12 @@
 import time
 from pyspark.sql import SparkSession
 
-
-spark = SparkSession.builder.appName("XML Reader").getOrCreate()
+spark = SparkSession.builder \
+    .appName("HDFS XML Read") \
+    .config("spark.hadoop.fs.defaultFS", "hdfs://172.27.90.91:9000") \
+    .config("spark.hadoop.dfs.client.read.shortcircuit", "false") \
+    .config("spark.hadoop.dfs.client.use.datanode.hostname", "true") \
+    .getOrCreate()
 
 jvm = spark._jvm
 runtime = jvm.java.lang.Runtime.getRuntime()
@@ -10,7 +14,7 @@ memory_before = runtime.totalMemory() - runtime.freeMemory()
 
 start_time = time.time()
 
-df = spark.read.format('com.databricks.spark.xml').option("root", "item").load("datasets/data.xml")
+df = spark.read.format('com.databricks.spark.xml').option("root", "item").load("hdfs://172.27.90.91:9000/user/kerem/datasets/data.xml")
 
 end_time = time.time()
 
