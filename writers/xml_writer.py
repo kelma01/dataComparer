@@ -16,12 +16,10 @@ def escape_xml(value):
         )
     return value
 
-# XML dosyasını oku
 file_path = "datasets/data.xml"
 tree = ET.parse(file_path)
 root = tree.getroot()
 
-# Yeni giriş oluştur
 new_entry = {
     "sid": "row-test-test-tes3",
     "id": "00000000-0000-0000-C8E0-8E315E3AF06C",
@@ -29,30 +27,27 @@ new_entry = {
     "created_at": "1712774929",
     "created_meta": "null",
     "meta": "{ }",
-    "Unique_ID": "221806",  # Boşluk kaldırıldı
-    "Indicator_ID": "386",  # Boşluk kaldırıldı
+    "Unique_ID": "221806",  
+    "Indicator_ID": "386",  
     "Name": "Ozone (O3)",
     "Measure": "Mean",
-    "Measure_Info": "ppb",  # Boşluk kaldırıldı
-    "Geo_Type_Name": "UHF34",  # Boşluk kaldırıldı
-    "Geo_Join_ID": "103",  # Boşluk kaldırıldı
-    "Geo_Place_Name": "Fordham - Bronx Pk",  # Boşluk kaldırıldı
-    "Time_Period": "Summer 2014",  # Boşluk kaldırıldı
+    "Measure_Info": "ppb",  
+    "Geo_Type_Name": "UHF34",  
+    "Geo_Join_ID": "103",  
+    "Geo_Place_Name": "Fordham - Bronx Pk",  
+    "Time_Period": "Summer 2014",
     "Start_Date": "2014-06-01T00:00:00",
-    "Data_Value": "30.7",  # Boşluk kaldırıldı
+    "Data_Value": "30.7",
     "Message": "null"
 }
 
-# Yeni giriş için bir XML öğesi oluştur
 new_element = ET.Element("item")
 for key, value in new_entry.items():
     child = ET.SubElement(new_element, key)
     child.text = escape_xml(value)
 
-# Yeni öğeyi kök düğüme ekle
 root.append(new_element)
 
-# Güncellenmiş XML dosyasını kaydet
 tree.write(file_path, encoding="utf-8", xml_declaration=True)
 
 print(f"========================================================================")

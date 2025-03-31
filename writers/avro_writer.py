@@ -7,7 +7,6 @@ import psutil
 start_time = time.time()
 process = psutil.Process()
 
-# Şema tanımlaması
 schema = {
     "type": "record",
     "name": "AvroSchema",
@@ -87,12 +86,10 @@ schema = {
     ]
 }
 
-# Tarih dönüştürme
 date_str = "2014-06-01T00:00:00"
 dt = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S")
 timestamp_ms = dt.timestamp() * 1000  # 
 
-# Yeni kayıt
 new_record = {
     "sid": "row-test-test-test",
     "id": "00000000-0000-0000-C8E0-8E315E3AF06C",
@@ -114,10 +111,8 @@ new_record = {
     "Message": "0.1"
 }
 
-# Dosya yolu
 avro_file = "datasets/data.avro"
 
-# Eğer dosya varsa eski verileri oku ve yeni kaydı ekle
 if os.path.exists(avro_file):
     with open(avro_file, "rb") as f:
         existing_records = [record for record in fastavro.reader(f)]
@@ -126,7 +121,6 @@ else:
 
 existing_records.append(new_record)
 
-# Güncellenmiş veriyi Avro dosyasına yaz
 with open(avro_file, "wb") as out:
     fastavro.writer(out, schema, existing_records)
 
@@ -135,4 +129,6 @@ print(f"========================================================================
 print(f"Writing Time of Avro formatted file: {time.time() - start_time} seconds")
 print(f"Memory Usage After Writing: {process.memory_info().rss / (1024 * 1024):.2f} MB")
 print(f"========================================================================")
+
+
 #execute this line for running: `python .\writers\avro_writer.py`
