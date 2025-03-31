@@ -49,3 +49,5 @@ print(f"========================================================================
 print(f"Writing Time of JSON formatted file: {end_time - start_time} seconds")
 print(f"Memory Usage After Writing: {memory_usage:.2f} MB")
 print(f"========================================================================")
+
+#execute this line: 'python hdfs_writers/json_writer.py'

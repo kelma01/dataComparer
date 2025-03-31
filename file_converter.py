@@ -10,7 +10,7 @@ with open('datasets/data.json', 'r') as json_file:
     json_data = json.load(json_file)
 
 #converting json format to parquet format
-""" df = pd.read_json('datasets/data.json')
+df = pd.read_json('datasets/data.json')
 table = pa.Table.from_pandas(df)
 pq.write_table(table, 'datasets/data.parquet')
 
@@ -29,10 +29,10 @@ pq.write_table(new_table, "datasets/data.parquet")  # schema parametresi kaldır
 
 
 
-""" #converting json format to xml format
+#converting json format to xml format
 xml_data = xmltodict.unparse({"root": {"item": json_data}}, pretty=True)
 with open('datasets/data.xml', 'w', encoding='utf-8') as xml_file:
-    xml_file.write(xml_data) """
+    xml_file.write(xml_data)
 
 #converting json format to avro format
 schema = {
