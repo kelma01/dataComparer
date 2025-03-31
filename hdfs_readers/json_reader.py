@@ -14,7 +14,7 @@ memory_before = runtime.totalMemory() - runtime.freeMemory()
 
 start_time = time.time()
  
-df = spark.read.json("hdfs://172.27.90.91:9000/user/kerem/datasets/data.json")
+df = spark.read.option("multiline", "false").json("hdfs://172.27.90.91:9000/user/kerem/datasets/data.json")
 
 end_time = time.time()
 
