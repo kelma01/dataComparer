@@ -163,7 +163,3 @@ export HIVE_CONF_DIR=$HIVE_HOME/conf
 1. 9000 ve 9866 portlarının dışarıya açık olduğundan emin ol değilse açü
 2. WSL'deki IP değerlerini kullanarak portu windows'un kullanımına aç
 3. https://chatgpt.com/share/67e95025-8d44-8000-9596-7cf5bf874fb0 linkindeki GPT geçmişini oku, benim çözüm şeklim buydu.
-
-
-# Metrik fikirleri:
-1. dataset'e veri yazarken metrik ölçülebilir, büyük etken.

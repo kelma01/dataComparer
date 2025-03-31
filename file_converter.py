@@ -6,11 +6,11 @@ import xmltodict
 import fastavro
 
 #read json file
-with open('datasets/big_data.json', 'r') as json_file:
+with open('datasets/data.json', 'r') as json_file:
     json_data = json.load(json_file)
 
 #converting json format to parquet format
-df = pd.read_json('datasets/big_data.json')
+""" df = pd.read_json('datasets/data.json')
 table = pa.Table.from_pandas(df)
 pq.write_table(table, 'datasets/data.parquet')
 
@@ -24,15 +24,15 @@ for field in table.schema:
 
 new_schema = pa.schema(new_fields)
 new_table = table.cast(new_schema)
-pq.write_table(new_table, "datasets/data.parquet")  # schema parametresi kaldırıldı!
+pq.write_table(new_table, "datasets/data.parquet")  # schema parametresi kaldırıldı! """
 
 
 
 
-#converting json format to xml format
+""" #converting json format to xml format
 xml_data = xmltodict.unparse({"root": {"item": json_data}}, pretty=True)
 with open('datasets/data.xml', 'w', encoding='utf-8') as xml_file:
-    xml_file.write(xml_data)
+    xml_file.write(xml_data) """
 
 #converting json format to avro format
 schema = {
@@ -64,11 +64,11 @@ schema = {
       "type": "string"
     },
     {
-      "name": "Unique ID",
+      "name": "Unique_ID",
       "type": "string"
     },
     {
-      "name": "Indicator ID",
+      "name": "Indicator_ID",
       "type": "string"
     },
     {
@@ -80,23 +80,23 @@ schema = {
       "type": "string"
     },
     {
-      "name": "Measure Info",
+      "name": "Measure_Info",
       "type": "string"
     },
     {
-      "name": "Geo Type Name",
+      "name": "Geo_Type_Name",
       "type": "string"
     },
     {
-      "name": "Geo Join ID",
+      "name": "Geo_Join_ID",
       "type": "string"
     },
     {
-      "name": "Geo Place Name",
+      "name": "Geo_Place_Name",
       "type": "string"
     },
     {
-      "name": "Time Period",
+      "name": "Time_Period",
       "type": "string"
     },
     {
@@ -104,7 +104,7 @@ schema = {
       "type": "string"
     },
     {
-      "name": "Data Value",
+      "name": "Data_Value",
       "type": "string"
     },
     {
