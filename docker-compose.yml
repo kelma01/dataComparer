@@ -1,0 +1,61 @@
+version: '3'
+services:
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    environment:
+      - CLUSTER_NAME=test
+    volumes:
+      - namenode:/hadoop/dfs/name
+    ports:
+      - 9870:9870
+    networks:
+      - bigdata
+
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+    volumes:
+      - datanode:/hadoop/dfs/data
+    networks:
+      - bigdata
+
+  hive-metastore:
+    image: bde2020/hive:2.3.2-postgresql-metastore
+    environment:
+      - HIVE_CORE_CONF_javax_jdo_option_ConnectionURL=jdbc:postgresql://hive-metastore-postgresql/metastore
+      - HIVE_CORE_CONF_javax_jdo_option_ConnectionDriverName=org.postgresql.Driver
+      - HIVE_CORE_CONF_javax_jdo_option_ConnectionUserName=hive
+      - HIVE_CORE_CONF_javax_jdo_option_ConnectionPassword=hive
+      - HIVE_METASTORE_DB_TYPE=postgres
+    ports:
+      - 9083:9083
+    networks:
+      - bigdata
+    depends_on:
+      - hive-metastore-postgresql
+
+  hive-metastore-postgresql:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=metastore
+      - POSTGRES_USER=hive
+      - POSTGRES_PASSWORD=hive
+    networks:
+      - bigdata
+
+  spark:
+    image: bitnami/spark:latest
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - 8080:8080
+    networks:
+      - bigdata
+
+volumes:
+  namenode:
+  datanode:
+
+networks:
+  bigdata:
